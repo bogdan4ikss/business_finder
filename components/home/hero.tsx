@@ -4,18 +4,15 @@ import {
   CheckCircle2,
   Sparkles,
   Zap,
-  Target,
   ListChecks,
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { MapBackground } from "@/components/MapBackground"
 
-const steps = ["01", "02", "03"]
-
 export function Hero() {
   return (
-    <section className="relative isolate -mt-24 min-h-[calc(100svh+3rem)] overflow-hidden bg-background px-4 pt-32 pb-16 md:px-6 md:pt-36 md:pb-20 lg:px-10 lg:pt-40 lg:pb-24">
+    <section className="relative isolate -mt-24 min-h-[calc(100svh+3rem)] overflow-hidden bg-background px-4 pt-32 pb-32 sm:px-6 sm:pt-36 sm:pb-36 md:pt-40 lg:px-10 lg:pt-40 lg:pb-28">
       {/* Фоновый градиент + карта (адаптируются под тему через opacity) */}
       <div className="absolute inset-0 -z-10">
         <MapBackground />
@@ -24,9 +21,9 @@ export function Hero() {
       </div>
 
       <div className="mx-auto max-w-6xl">
-        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-20">
+        <div className="grid items-start gap-16 sm:gap-20 lg:grid-cols-2 lg:gap-14 xl:gap-20">
           {/* Левая колонка - контент */}
-          <div className="relative pt-8">
+          <div className="relative pt-4 sm:pt-6 lg:pt-8">
             {/* Бейдж */}
             <div className="inline-flex animate-in duration-700 slide-in-from-top-5 fade-in">
               <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-medium tracking-wide text-primary backdrop-blur-sm">
@@ -38,7 +35,7 @@ export function Hero() {
               </span>
             </div>
 
-            <h1 className="mt-6 font-heading text-4xl leading-[1.1] font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-5xl xl:text-[3.5rem]">
+            <h1 className="mt-6 max-w-xl font-heading text-[2.5rem] leading-[1.08] font-bold tracking-tight text-foreground sm:text-5xl md:text-[3.25rem] lg:text-5xl xl:text-[3.5rem]">
               Находите <br className="hidden sm:block" /> Бизнесы Без{" "}
               <br className="hidden sm:block" /> Сайта
               <br />
@@ -55,10 +52,10 @@ export function Hero() {
             </p>
 
             {/* Кнопки */}
-            <div className="mt-9 flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex w-full items-center gap-3 sm:mt-9 sm:w-auto">
               <Button
                 size="lg"
-                className="group h-12 rounded-full bg-primary px-6 text-primary-foreground shadow-lg shadow-primary/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/40"
+                className="group h-12 min-w-0 flex-1 rounded-full bg-primary px-4 text-primary-foreground shadow-lg shadow-primary/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/40 sm:flex-none sm:px-6 sm:hover:scale-105"
               >
                 Попробовать бесплатно
                 <Zap className="ml-2 size-4 transition-transform group-hover:scale-110 group-hover:rotate-12" />
@@ -76,10 +73,10 @@ export function Hero() {
 
           {/* Правая колонка - UI Дэшборд */}
           {/* Добавили z-10, чтобы блок перекрывал соседние элементы при вылете карточек */}
-          <div className="relative z-10 mx-auto w-full max-w-xl rounded-[39px] lg:pt-10">
+          <div className="relative z-10 mx-auto w-full max-w-xl rounded-3xl sm:w-[calc(100%-3rem)] sm:rounded-[39px] md:w-full lg:pt-10">
             {/* Основной контейнер карты */}
             {/* Заменили жесткие цвета на theme-aware, убрали белые кольца */}
-            <div className="relative aspect-[4/3] rounded-[40px] border border-border/80 bg-gradient-to-br from-background/90 to-muted/80 shadow-2xl ring-1 ring-border/50 backdrop-blur-xl">
+            <div className="relative aspect-[4/3] rounded-3xl border border-border/80 bg-gradient-to-br from-background/90 to-muted/80 shadow-2xl ring-1 ring-border/50 backdrop-blur-xl sm:rounded-[40px]">
               {/* Карта и сетка */}
               <div className="relative h-full w-full pt-14">
                 <div className="absolute inset-0">
@@ -191,7 +188,7 @@ export function Hero() {
             */}
 
             {/* Виджет статистики (Слева сверху) */}
-            <div className="absolute -top-4 -left-4 z-20 max-w-[140px] overflow-hidden rounded-2xl border border-border/60 bg-background/80 p-4 shadow-xl backdrop-blur-xl sm:-top-6 sm:-left-6">
+            <div className="absolute -top-4 left-2 z-20 max-w-[132px] overflow-hidden rounded-xl border border-border/60 bg-background/80 p-3 shadow-xl backdrop-blur-xl sm:-top-6 sm:-left-6 sm:max-w-[140px] sm:rounded-2xl sm:p-4">
               <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
                 <ListChecks className="size-3" /> Найдено
               </div>
@@ -210,7 +207,7 @@ export function Hero() {
             </div>
 
             {/* Карточка компании (Слева снизу - вылетает влево и вниз) */}
-            <div className="absolute -bottom-12 -left-4 z-20 w-[270px] overflow-hidden rounded-[24px] border border-border/60 bg-card/90 p-5 shadow-2xl shadow-foreground/10 backdrop-blur-xl transition-transform duration-300 hover:scale-[1.02] sm:-left-10">
+            <div className="absolute -bottom-20 left-2 z-20 w-[calc(100%-1rem)] max-w-[270px] overflow-hidden rounded-2xl border border-border/60 bg-card/90 p-4 shadow-2xl shadow-foreground/10 backdrop-blur-xl transition-transform duration-300 hover:scale-[1.02] sm:-bottom-12 sm:-left-10 sm:rounded-[24px] sm:p-5">
               <div className="flex items-start justify-between">
                 <div className="flex gap-3">
                   <div className="flex size-11 items-center justify-center rounded-xl bg-primary/10">

@@ -28,7 +28,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden md:block">
+        <nav className="hidden lg:block">
           <ul className="flex items-center gap-3 text-xs font-medium text-muted-foreground">
             <li>
               <Link
@@ -51,13 +51,13 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="ml-auto hidden items-center gap-2 md:flex">
+        <div className="ml-auto hidden items-center gap-2 lg:flex">
           <ThemeToggle />
           <Button variant="ghost">Войти</Button>
           <Button>Попробовать бесплатно</Button>
         </div>
 
-        <div className="ml-auto flex items-center gap-1 md:hidden">
+        <div className="ml-auto flex items-center gap-1 lg:hidden">
           <ThemeToggle />
           <Button
             variant="ghost"
@@ -71,7 +71,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="flex flex-col gap-1 border-t border-border/40 px-5 py-3 md:hidden">
+        <div className="flex flex-col gap-1 border-t border-border/40 px-5 py-3 lg:hidden">
           <Link
             href="/"
             className="rounded-lg px-2 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
