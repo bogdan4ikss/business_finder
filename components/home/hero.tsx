@@ -15,7 +15,7 @@ const steps = ["01", "02", "03"]
 
 export function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-background px-4 py-8 md:px-6 md:py-12 lg:px-10 lg:py-16">
+    <section className="relative isolate -mt-24 min-h-[calc(100svh+3rem)] overflow-hidden bg-background px-4 pt-32 pb-16 md:px-6 md:pt-36 md:pb-20 lg:px-10 lg:pt-40 lg:pb-24">
       {/* Фоновый градиент + карта (адаптируются под тему через opacity) */}
       <div className="absolute inset-0 -z-10">
         <MapBackground />
