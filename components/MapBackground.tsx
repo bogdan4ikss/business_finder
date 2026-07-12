@@ -81,7 +81,8 @@ export function MapBackground() {
     // `text-foreground` class below. Used as-is (works for rgb(), oklch(),
     // anything) with opacity applied via globalAlpha rather than parsed,
     // since the computed format isn't guaranteed to be rgb().
-    const lineColor = getComputedStyle(canvasEl).color
+    let lineColor = getComputedStyle(canvasEl).color
+    let isDarkTheme = document.documentElement.classList.contains("dark")
 
     let width = 0
     let height = 0
@@ -98,8 +99,8 @@ export function MapBackground() {
       if (!sctx) return
       sctx.scale(dpr, dpr)
 
-      // dot grid
-      sctx.globalAlpha = 0.05
+      // Light surfaces need slightly stronger neutral marks to remain visible.
+      sctx.globalAlpha = isDarkTheme ? 0.05 : 0.09
       sctx.fillStyle = lineColor
       for (let x = GRID_SPACING / 2; x < width; x += GRID_SPACING) {
         for (let y = GRID_SPACING / 2; y < height; y += GRID_SPACING) {
@@ -110,9 +111,9 @@ export function MapBackground() {
       }
 
       // roads
-      sctx.globalAlpha = 0.06
+      sctx.globalAlpha = isDarkTheme ? 0.06 : 0.14
       sctx.strokeStyle = lineColor
-      sctx.lineWidth = 1.4
+      sctx.lineWidth = isDarkTheme ? 1.4 : 1.6
       sctx.lineCap = "round"
       for (const road of ROADS) {
         sctx.beginPath()
@@ -183,13 +184,27 @@ export function MapBackground() {
     drawFrame(0)
 
     const observer = new ResizeObserver(() => {
+      if (rafId) cancelAnimationFrame(rafId)
       resize()
       drawFrame(0)
     })
     observer.observe(canvasEl)
 
+    const themeObserver = new MutationObserver(() => {
+      if (rafId) cancelAnimationFrame(rafId)
+      lineColor = getComputedStyle(canvasEl).color
+      isDarkTheme = document.documentElement.classList.contains("dark")
+      layoutStatic()
+      drawFrame(0)
+    })
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    })
+
     return () => {
       observer.disconnect()
+      themeObserver.disconnect()
       if (rafId) cancelAnimationFrame(rafId)
     }
   }, [])
