@@ -1,185 +1,209 @@
-"use client"
-
-import { useRef } from "react"
 import {
-  MapPin,
-  Sparkles,
-  Globe,
-  Users,
   ArrowUpRight,
-  TrendingUp,
-  Zap,
+  Building2,
+  Check,
+  MapPin,
+  Radar,
   Search,
+  Send,
+  Sparkles,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-const stats = [
-  { value: "12 000+", label: "Компаний без сайта", sub: "найдено в России" },
-  { value: "94%", label: "Точность ИИ-анализа", sub: "релевантных откликов" },
-  { value: "3 мин", label: "До первого контакта", sub: "от запуска поиска" },
+const steps = [
+  { number: "01", label: "Задаёте нишу", icon: Search },
+  { number: "02", label: "ИИ проверяет", icon: Sparkles },
+  { number: "03", label: "Получаете лид", icon: Send },
 ]
 
-const features = [
-  {
-    icon: Search,
-    title: "Умный поиск",
-    desc: "Сканируем 2ГИС, Яндекс Карты и открытые реестры — находим бизнесы, которых нет в интернете.",
-  },
-  {
-    icon: Sparkles,
-    title: "ИИ-отклик",
-    desc: "Генерируем персональный текст под каждую компанию: отрасль, размер, город.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Аналитика рынка",
-    desc: "Показываем, сколько потенциальных клиентов в выбранной нише и регионе.",
-  },
-  {
-    icon: Zap,
-    title: "Быстрый старт",
-    desc: "Не нужно настраивать ничего — первые лиды через 3 минуты после регистрации.",
-  },
+const mapPoints = [
+  { left: "18%", top: "24%", active: false },
+  { left: "74%", top: "19%", active: false },
+  { left: "82%", top: "67%", active: false },
+  { left: "24%", top: "74%", active: false },
+  { left: "54%", top: "48%", active: true },
 ]
 
-export function CompanySection() {
-  const sectionRef = useRef<HTMLElement>(null)
-
+function SearchMap() {
   return (
-    <section
-      ref={sectionRef}
-      className="relative bg-background px-4 py-20 sm:px-6 sm:py-24 lg:px-10 lg:py-28"
-    >
-      {/* Subtle top divider */}
-      <div className="absolute inset-x-0 top-0 h-px bg-border/60" />
+    <div className="relative min-h-80 overflow-hidden rounded-[1.75rem] border border-company-line bg-company-map sm:min-h-96 lg:h-full">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-60 [background-image:linear-gradient(to_right,var(--company-line)_1px,transparent_1px),linear-gradient(to_bottom,var(--company-line)_1px,transparent_1px)] [background-size:42px_42px]"
+      />
 
-      <div className="mx-auto max-w-6xl">
-        {/* Section label */}
-        <div className="mb-12 flex items-center gap-3">
-          <span className="h-px w-8 bg-primary" />
-          <span className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-            О компании
+      <svg
+        aria-hidden="true"
+        className="absolute inset-0 size-full text-company-line"
+        viewBox="0 0 600 430"
+        fill="none"
+        preserveAspectRatio="none"
+      >
+        <path d="M-30 105C92 58 163 158 278 129S458 24 640 90" stroke="currentColor" strokeWidth="2" />
+        <path d="M-45 315C112 231 170 370 316 289S500 214 644 274" stroke="currentColor" strokeWidth="2" />
+        <path d="M111-24C147 86 66 191 157 277S233 392 208 470" stroke="currentColor" strokeWidth="2" />
+        <path d="M451-28C397 80 494 176 407 247S345 368 398 468" stroke="currentColor" strokeWidth="2" />
+      </svg>
+
+      <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full border border-company-line bg-company-panel/90 px-3 py-2 shadow-sm backdrop-blur-sm sm:left-7 sm:top-7">
+        <Radar className="size-4 text-primary" />
+        <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-company-soft">
+          Поиск активен
+        </span>
+      </div>
+
+      {mapPoints.map((point, index) => (
+        <div
+          key={`${point.left}-${point.top}`}
+          aria-hidden="true"
+          className={`absolute -translate-x-1/2 -translate-y-1/2 ${point.active ? "z-20" : "z-10"}`}
+          style={{ left: point.left, top: point.top }}
+        >
+          {point.active && (
+            <span className="absolute left-1/2 top-1/2 size-16 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full border border-primary/40" />
+          )}
+          <span
+            className={`flex items-center justify-center rounded-full border shadow-sm ${
+              point.active
+                ? "size-11 border-primary bg-primary text-primary-foreground"
+                : "size-7 border-company-line bg-company-panel text-company-soft"
+            }`}
+          >
+            {point.active ? <Building2 className="size-4" /> : <span className="size-1.5 rounded-full bg-current" />}
+          </span>
+          {!point.active && <span className="sr-only">Точка компании {index + 1}</span>}
+        </div>
+      ))}
+
+      <div className="absolute bottom-5 left-5 right-5 z-30 rounded-2xl border border-company-line bg-company-panel/95 p-4 shadow-xl backdrop-blur-md sm:bottom-7 sm:left-auto sm:right-7 sm:w-72">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
+              <Building2 className="size-4" />
+            </span>
+            <div>
+              <p className="text-sm font-semibold text-foreground">Студия мебели «Форма»</p>
+              <p className="mt-0.5 text-xs text-company-soft">Казань · сайта нет</p>
+            </div>
+          </div>
+          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+            <Check className="size-3.5" />
           </span>
         </div>
+        <div className="mt-4 flex items-center justify-between border-t border-company-line pt-3">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-company-soft">Совпадение</span>
+          <span className="font-heading text-sm font-bold text-primary">94%</span>
+        </div>
+      </div>
+    </div>
+  )
+}
 
-        {/* Bento grid */}
-        <div className="grid auto-rows-auto grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-[auto_auto]">
-
-          {/* Card 1 — Mission (tall, spans 2 rows on lg) */}
-          <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-border/70 bg-card p-8 sm:row-span-2 lg:row-span-2">
-            {/* Background glow */}
-            <div className="pointer-events-none absolute -top-20 -right-20 h-48 w-48 rounded-full bg-primary/10 blur-3xl transition-all duration-700 group-hover:bg-primary/18" />
-
-            <div className="relative z-10 flex flex-col gap-6">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10">
-                <Globe className="size-5 text-primary" />
-              </div>
-
-              <div>
-                <p className="mb-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                  Миссия
-                </p>
-                <h2 className="font-heading text-3xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-4xl">
-                  Находим клиентов,
-                  <br />
-                  <span className="text-primary">которых</span>
-                  <br />
-                  ещё нет в сети
-                </h2>
-              </div>
-
-              <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-                easywork.find — первый российский B2B-сервис, который автоматически
-                находит офлайн-бизнесы и помогает веб-студиям, агентствам и
-                фрилансерам первыми предложить им своё решение.
-              </p>
+export function CompanySection() {
+  return (
+    <section id="company" className="relative bg-background px-4 py-20 sm:px-6 sm:py-24 lg:px-10 lg:py-28">
+      <div className="mx-auto max-w-6xl">
+        <header className="mb-10 flex flex-col gap-6 sm:mb-14 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-3xl">
+            <div className="mb-5 flex items-center gap-3">
+              <span className="h-px w-8 bg-primary" />
+              <span className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                Компания
+              </span>
             </div>
+            <h2 className="text-balance font-heading text-4xl font-bold leading-[1.04] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+              Превращаем офлайн-бизнес
+              <span className="text-primary"> в новых клиентов</span>
+            </h2>
+          </div>
+          <p className="max-w-md text-pretty text-sm leading-relaxed text-muted-foreground sm:text-base lg:pb-1">
+            easywork.find помогает агентствам и фрилансерам первыми находить компании,
+            которым нужен сайт, продвижение или автоматизация.
+          </p>
+        </header>
 
-            <div className="relative z-10 mt-8">
-              <Button
-                variant="outline"
-                className="group/btn w-full justify-between rounded-2xl border-border/60 bg-background/50 backdrop-blur-sm hover:border-primary/40 hover:bg-primary/5"
-              >
-                <span className="flex items-center gap-2 text-sm font-medium">
-                  <Users className="size-4 text-primary" />
-                  Присоединиться к Beta
+        <div className="overflow-hidden rounded-[2rem] border border-company-line bg-company-shell p-2 shadow-[0_24px_80px_-48px_var(--company-shadow)] sm:rounded-[2.5rem] sm:p-3">
+          <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-[0.88fr_1.12fr] lg:grid-rows-[minmax(380px,1fr)_auto]">
+            <article className="relative flex min-h-[410px] flex-col justify-between overflow-hidden rounded-[1.75rem] bg-company-panel p-6 sm:p-8 lg:min-h-0 lg:p-10">
+              <div aria-hidden="true" className="absolute -right-14 -top-14 size-48 rounded-full border border-company-line" />
+              <div aria-hidden="true" className="absolute -right-7 -top-7 size-28 rounded-full border border-primary/30" />
+
+              <div className="relative">
+                <span className="inline-flex size-11 items-center justify-center rounded-2xl border border-company-line bg-company-soft-surface text-primary">
+                  <MapPin className="size-5" />
                 </span>
-                <ArrowUpRight className="size-4 text-muted-foreground transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                <p className="mt-10 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-company-soft">
+                  Наша миссия
+                </p>
+                <h3 className="mt-4 text-balance font-heading text-3xl font-bold leading-[1.08] tracking-tight text-foreground sm:text-4xl">
+                  Хорошие проекты начинаются с точного совпадения
+                </h3>
+                <p className="mt-5 max-w-md text-sm leading-relaxed text-company-soft sm:text-base">
+                  Мы убираем холодный поиск и ручную проверку. Сервис сам находит
+                  подходящий бизнес, анализирует потребность и готовит повод для диалога.
+                </p>
+              </div>
+
+              <Button className="group mt-10 h-12 w-full justify-between rounded-full bg-foreground px-5 text-background hover:bg-foreground/90 sm:w-fit">
+                Попробовать бесплатно
+                <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Button>
-            </div>
-          </div>
+            </article>
 
-          {/* Cards 2–4 — Stats */}
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="group relative overflow-hidden rounded-3xl border border-border/70 bg-card p-7"
-            >
-              <div className="pointer-events-none absolute -bottom-10 -right-10 h-32 w-32 rounded-full bg-primary/6 blur-2xl transition-all duration-500 group-hover:bg-primary/12" />
-              <p className="relative z-10 font-heading text-[2.6rem] font-bold leading-none tracking-tight text-foreground">
-                {stat.value}
-              </p>
-              <p className="relative z-10 mt-2 text-sm font-semibold text-foreground/80">
-                {stat.label}
-              </p>
-              <p className="relative z-10 mt-1 text-xs text-muted-foreground">
-                {stat.sub}
-              </p>
-              <div className="relative z-10 mt-4 h-px w-12 bg-primary/50" />
-            </div>
-          ))}
+            <SearchMap />
 
-          {/* Card 5 — Feature grid (full width on lg) */}
-          <div className="rounded-3xl border border-border/70 bg-card p-7 sm:col-span-2 lg:col-span-2">
-            <p className="mb-6 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-              Как это работает
-            </p>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              {features.map((f) => (
-                <div key={f.title} className="flex gap-4">
-                  <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10">
-                    <f.icon className="size-4 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">
-                      {f.title}
-                    </p>
-                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                      {f.desc}
-                    </p>
-                  </div>
+            <div className="grid gap-2 md:col-span-2 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
+              <article className="rounded-[1.75rem] bg-company-panel p-6 sm:p-7">
+                <div className="flex items-center justify-between gap-4">
+                  <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-company-soft">
+                    От запроса до контакта
+                  </p>
+                  <span className="rounded-full bg-primary/15 px-2.5 py-1 font-mono text-[10px] font-semibold text-primary">
+                    3 минуты
+                  </span>
                 </div>
-              ))}
+                <div className="mt-7 grid grid-cols-3 gap-2">
+                  {steps.map((step, index) => (
+                    <div key={step.number} className="relative">
+                      <div className="mb-3 flex items-center">
+                        <span className="flex size-9 items-center justify-center rounded-xl bg-company-soft-surface text-primary">
+                          <step.icon className="size-4" />
+                        </span>
+                        {index < steps.length - 1 && <span className="h-px flex-1 bg-company-line" />}
+                      </div>
+                      <span className="font-mono text-[9px] text-company-soft">{step.number}</span>
+                      <p className="mt-1 text-xs font-semibold leading-snug text-foreground sm:text-sm">{step.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </article>
+
+              <article className="flex min-h-48 flex-col justify-between rounded-[1.75rem] bg-primary p-6 text-primary-foreground sm:p-7">
+                <div className="flex items-start justify-between">
+                  <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] opacity-75">База</span>
+                  <Radar className="size-5" />
+                </div>
+                <div>
+                  <p className="font-heading text-4xl font-bold tracking-tight sm:text-5xl">12 000+</p>
+                  <p className="mt-2 max-w-40 text-sm leading-snug opacity-80">компаний уже готовы к первому контакту</p>
+                </div>
+              </article>
+
+              <article className="flex min-h-48 flex-col justify-between rounded-[1.75rem] bg-company-ink p-6 text-company-ink-foreground sm:p-7">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] opacity-60">География</span>
+                  <span className="relative flex size-2">
+                    <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-60" />
+                    <span className="relative inline-flex size-2 rounded-full bg-primary" />
+                  </span>
+                </div>
+                <div>
+                  <p className="font-heading text-3xl font-bold tracking-tight">Вся Россия</p>
+                  <p className="mt-2 text-sm leading-snug opacity-60">Данные обновляются ежедневно</p>
+                </div>
+              </article>
             </div>
           </div>
-
-          {/* Card 6 — Geo accent */}
-          <div className="group relative overflow-hidden rounded-3xl border border-border/70 bg-primary/5 p-7 sm:col-span-2 lg:col-span-1 lg:row-start-auto">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,var(--color-primary)/0.12,transparent_70%)]" />
-            <div className="relative z-10 flex h-full flex-col justify-between gap-6">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/15">
-                <MapPin className="size-5 text-primary" />
-              </div>
-              <div>
-                <p className="font-heading text-xl font-bold leading-snug text-foreground">
-                  Любой город
-                  <br />
-                  России
-                </p>
-                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                  Москва, Санкт-Петербург, регионы — база обновляется ежедневно.
-                </p>
-              </div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-50" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-                </span>
-                Обновляется в реальном времени
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
     </section>
