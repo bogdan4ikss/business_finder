@@ -16,83 +16,78 @@ const steps = [
   { number: "03", label: "Получаете лид", icon: Send },
 ]
 
-const mapPoints = [
-  { left: "18%", top: "24%", active: false },
-  { left: "74%", top: "19%", active: false },
-  { left: "82%", top: "67%", active: false },
-  { left: "24%", top: "74%", active: false },
-  { left: "54%", top: "48%", active: true },
+const pipelineSources = [
+  { label: "Каталоги", value: "4 820", icon: Search },
+  { label: "Справочники", value: "3 160", icon: Building2 },
+  { label: "Соцсети", value: "2 740", icon: Send },
 ]
 
-function SearchMap() {
+function LeadPipeline() {
   return (
-    <div className="relative min-h-80 overflow-hidden rounded-[1.75rem] border border-company-line bg-company-map sm:min-h-96 lg:h-full">
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 opacity-60 [background-image:linear-gradient(to_right,var(--company-line)_1px,transparent_1px),linear-gradient(to_bottom,var(--company-line)_1px,transparent_1px)] [background-size:42px_42px]"
-      />
-
-      <svg
-        aria-hidden="true"
-        className="absolute inset-0 size-full text-company-line"
-        viewBox="0 0 600 430"
-        fill="none"
-        preserveAspectRatio="none"
-      >
-        <path d="M-30 105C92 58 163 158 278 129S458 24 640 90" stroke="currentColor" strokeWidth="2" />
-        <path d="M-45 315C112 231 170 370 316 289S500 214 644 274" stroke="currentColor" strokeWidth="2" />
-        <path d="M111-24C147 86 66 191 157 277S233 392 208 470" stroke="currentColor" strokeWidth="2" />
-        <path d="M451-28C397 80 494 176 407 247S345 368 398 468" stroke="currentColor" strokeWidth="2" />
-      </svg>
-
-      <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full border border-company-line bg-company-panel/90 px-3 py-2 shadow-sm backdrop-blur-sm sm:left-7 sm:top-7">
-        <Radar className="size-4 text-primary" />
-        <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-company-soft">
-          Поиск активен
+    <div className="relative flex min-h-[430px] flex-col overflow-hidden rounded-[1.75rem] border border-company-line bg-company-panel p-5 sm:p-7 lg:h-full">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-company-soft">
+            Поток данных
+          </p>
+          <h3 className="mt-2 font-heading text-xl font-bold tracking-tight text-foreground sm:text-2xl">
+            От сигнала до готового лида
+          </h3>
+        </div>
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-2xl bg-primary/15 text-primary">
+          <Sparkles className="size-5" />
         </span>
       </div>
 
-      {mapPoints.map((point, index) => (
-        <div
-          key={`${point.left}-${point.top}`}
-          aria-hidden="true"
-          className={`absolute -translate-x-1/2 -translate-y-1/2 ${point.active ? "z-20" : "z-10"}`}
-          style={{ left: point.left, top: point.top }}
-        >
-          {point.active && (
-            <span className="absolute left-1/2 top-1/2 size-16 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full border border-primary/40" />
-          )}
-          <span
-            className={`flex items-center justify-center rounded-full border shadow-sm ${
-              point.active
-                ? "size-11 border-primary bg-primary text-primary-foreground"
-                : "size-7 border-company-line bg-company-panel text-company-soft"
-            }`}
-          >
-            {point.active ? <Building2 className="size-4" /> : <span className="size-1.5 rounded-full bg-current" />}
-          </span>
-          {!point.active && <span className="sr-only">Точка компании {index + 1}</span>}
-        </div>
-      ))}
-
-      <div className="absolute bottom-5 left-5 right-5 z-30 rounded-2xl border border-company-line bg-company-panel/95 p-4 shadow-xl backdrop-blur-md sm:bottom-7 sm:left-auto sm:right-7 sm:w-72">
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
-              <Building2 className="size-4" />
+      <div className="mt-7 grid gap-2 sm:grid-cols-3">
+        {pipelineSources.map((source) => (
+          <div key={source.label} className="flex items-center gap-3 rounded-2xl border border-company-line bg-company-shell p-3 sm:block">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-company-soft-surface text-primary">
+              <source.icon className="size-4" />
             </span>
-            <div>
-              <p className="text-sm font-semibold text-foreground">Студия мебели «Форма»</p>
-              <p className="mt-0.5 text-xs text-company-soft">Казань · сайта нет</p>
+            <div className="min-w-0 sm:mt-4">
+              <p className="truncate text-xs text-company-soft">{source.label}</p>
+              <p className="mt-0.5 font-heading text-lg font-bold text-foreground">{source.value}</p>
             </div>
           </div>
-          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
-            <Check className="size-3.5" />
+        ))}
+      </div>
+
+      <div className="my-4 flex items-center gap-3" aria-hidden="true">
+        <span className="h-px flex-1 bg-company-line" />
+        <span className="flex size-9 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary">
+          <Sparkles className="size-4" />
+        </span>
+        <span className="h-px flex-1 bg-company-line" />
+      </div>
+
+      <div className="relative flex flex-1 flex-col justify-between overflow-hidden rounded-2xl bg-company-ink p-5 text-company-ink-foreground sm:p-6">
+        <div aria-hidden="true" className="absolute right-5 top-5 font-mono text-[4.5rem] font-bold leading-none text-primary/10 sm:text-[6rem]">
+          94
+        </div>
+        <div className="relative flex items-center justify-between gap-4">
+          <span className="rounded-full border border-company-ink-foreground/15 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-company-ink-foreground/60">
+            ИИ-проверка завершена
+          </span>
+          <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+            <Check className="size-4" />
           </span>
         </div>
-        <div className="mt-4 flex items-center justify-between border-t border-company-line pt-3">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-company-soft">Совпадение</span>
-          <span className="font-heading text-sm font-bold text-primary">94%</span>
+
+        <div className="relative mt-8 flex items-end justify-between gap-5">
+          <div className="flex min-w-0 items-center gap-3">
+            <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-company-ink-foreground/10 text-primary">
+              <Building2 className="size-5" />
+            </span>
+            <div className="min-w-0">
+              <p className="truncate font-heading text-base font-bold sm:text-lg">Студия мебели «Форма»</p>
+              <p className="mt-1 text-xs text-company-ink-foreground/55">Нет сайта · есть контакты · Казань</p>
+            </div>
+          </div>
+          <div className="shrink-0 text-right">
+            <p className="font-heading text-3xl font-bold text-primary">94%</p>
+            <p className="font-mono text-[9px] uppercase tracking-wider text-company-ink-foreground/45">совпадение</p>
+          </div>
         </div>
       </div>
     </div>
@@ -150,7 +145,7 @@ export function CompanySection() {
               </Button>
             </article>
 
-            <SearchMap />
+            <LeadPipeline />
 
             <div className="grid gap-2 md:col-span-2 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
               <article className="rounded-[1.75rem] bg-company-panel p-6 sm:p-7">
