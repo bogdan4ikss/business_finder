@@ -46,6 +46,14 @@
   --company-ink: oklch(0.19 0.009 220);
   --company-ink-foreground: oklch(0.97 0.003 145);
   --company-shadow: oklch(0.25 0.02 220 / 35%);
+  --auth-page: oklch(0.16 0.018 222);
+  --auth-card: oklch(0.99 0.003 145);
+  --auth-field: oklch(0.975 0.004 145);
+  --auth-line: oklch(0.89 0.009 215);
+  --auth-dot: oklch(0.72 0.025 215 / 22%);
+  --auth-overlay: oklch(0.08 0.018 222 / 48%);
+  --auth-image-foreground: oklch(0.98 0.004 145);
+  --auth-shadow: oklch(0.04 0.015 222 / 55%);
 }
 
 .dark {
@@ -89,6 +97,14 @@
   --company-ink: oklch(0.105 0.006 220);
   --company-ink-foreground: oklch(0.97 0.003 145);
   --company-shadow: oklch(0.04 0.01 220 / 70%);
+  --auth-page: oklch(0.1 0.012 222);
+  --auth-card: oklch(0.18 0.009 222);
+  --auth-field: oklch(0.21 0.009 222);
+  --auth-line: oklch(1 0 0 / 11%);
+  --auth-dot: oklch(0.76 0.04 135 / 14%);
+  --auth-overlay: oklch(0.055 0.014 222 / 55%);
+  --auth-image-foreground: oklch(0.98 0.004 145);
+  --auth-shadow: oklch(0.02 0.01 222 / 75%);
 }
 
 @theme inline {
@@ -133,6 +149,13 @@
   --color-company-soft: var(--company-soft);
   --color-company-ink: var(--company-ink);
   --color-company-ink-foreground: var(--company-ink-foreground);
+  --color-auth-page: var(--auth-page);
+  --color-auth-card: var(--auth-card);
+  --color-auth-field: var(--auth-field);
+  --color-auth-line: var(--auth-line);
+  --color-auth-overlay: var(--auth-overlay);
+  --color-auth-image-foreground: var(--auth-image-foreground);
+  --color-auth-shadow: var(--auth-shadow);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
