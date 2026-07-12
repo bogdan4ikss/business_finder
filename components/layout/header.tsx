@@ -10,7 +10,7 @@ import { ThemeToggle } from "@/components/layout/theme-toggle"
 const anchorLinks = [
   { label: "Компания", href: "#about" },
   { label: "Цены", href: "#price" },
-  { label: "Сообщить о проблеме", href: "#contact" },
+  { label: "Обратная связь", href: "#contact" },
 ]
 
 export function Header() {
