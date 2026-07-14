@@ -1,3 +1,5 @@
+import { SearchWorkspace } from "@/components/admin/search-workspace"
+
 export default function AdminSearchPage() {
-  return <div>Поиск организаций</div>
+  return <SearchWorkspace />
 }

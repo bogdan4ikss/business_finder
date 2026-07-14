@@ -1,4 +1,5 @@
-import { Geist, Geist_Mono, Inter, Nunito_Sans } from "next/font/google"
+import type { Metadata, Viewport } from "next"
+import { Geist_Mono, Inter, Nunito_Sans } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -13,6 +14,18 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 })
 
+export const metadata: Metadata = {
+  title: "easywork.find — поиск организаций",
+  description: "Сервис поиска организаций и подготовки персональных обращений.",
+}
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#202324" },
+  ],
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -20,9 +33,9 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="ru"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", inter.variable, nunitoSansHeading.variable)}
+      className={cn("bg-background antialiased", fontMono.variable, "font-sans", inter.variable, nunitoSansHeading.variable)}
     >
       <body>
         <ThemeProvider>{children}</ThemeProvider>
