@@ -8,6 +8,7 @@ import {
   Send,
   Sparkles,
 } from "lucide-react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
 const steps = [
@@ -96,7 +97,10 @@ function LeadPipeline() {
 
 export function CompanySection() {
   return (
-    <section id="company" className="relative bg-background px-4 py-20 sm:px-6 sm:py-24 lg:px-10 lg:py-28">
+    <section
+      id="company"
+      className="relative scroll-mt-28 bg-background px-4 py-20 before:pointer-events-none before:absolute before:inset-x-0 before:-top-24 before:h-24 before:bg-gradient-to-b before:from-transparent before:to-background sm:px-6 sm:py-24 lg:px-10 lg:py-28"
+    >
       <div className="mx-auto max-w-6xl">
         <header className="mb-10 flex flex-col gap-6 sm:mb-14 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
@@ -139,7 +143,11 @@ export function CompanySection() {
                 </p>
               </div>
 
-              <Button className="group mt-10 h-12 w-full justify-between rounded-full bg-foreground px-5 text-background hover:bg-foreground/90 sm:w-fit">
+              <Button
+                nativeButton={false}
+                render={<Link href="/register" />}
+                className="group mt-10 h-12 w-full justify-between rounded-full bg-foreground px-5 text-background hover:bg-foreground/90 sm:w-fit"
+              >
                 Попробовать бесплатно
                 <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Button>

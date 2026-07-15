@@ -6,18 +6,20 @@ import {
   Zap,
   ListChecks,
 } from "lucide-react"
+import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import { MapBackground } from "@/components/MapBackground"
 
 export function Hero() {
   return (
-    <section className="relative isolate -mt-24 min-h-[calc(100svh+3rem)] overflow-hidden bg-background px-4 pt-32 pb-32 sm:px-6 sm:pt-36 sm:pb-36 md:pt-40 lg:px-10 lg:pt-40 lg:pb-28">
+    <section className="relative isolate -mt-24 min-h-svh overflow-hidden bg-background px-4 pt-32 pb-28 sm:px-6 sm:pt-36 sm:pb-32 md:pt-40 lg:px-10 lg:pt-40 lg:pb-24">
       {/* Фоновый градиент + карта (адаптируются под тему через opacity) */}
       <div className="absolute inset-0 -z-10">
         <MapBackground />
         <div className="absolute -top-24 -right-24 h-[800px] w-[800px] rounded-full bg-primary/5 blur-3xl" />
         <div className="absolute -bottom-24 -left-24 h-[600px] w-[600px] rounded-full bg-blue-500/5 blur-3xl" />
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent via-background/75 to-background" />
       </div>
 
       <div className="mx-auto max-w-6xl">
@@ -54,6 +56,8 @@ export function Hero() {
             {/* Кнопки */}
             <div className="mt-8 flex w-full items-center gap-3 sm:mt-9 sm:w-auto">
               <Button
+                nativeButton={false}
+                render={<Link href="/register" />}
                 size="lg"
                 className="group h-12 min-w-0 flex-1 rounded-full bg-primary px-4 text-primary-foreground shadow-lg shadow-primary/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/40 sm:flex-none sm:px-6 sm:hover:scale-105"
               >
@@ -61,10 +65,12 @@ export function Hero() {
                 <Zap className="ml-2 size-4 transition-transform group-hover:scale-110 group-hover:rotate-12" />
               </Button>
               <Button
+                nativeButton={false}
+                render={<Link href="/#company" />}
                 size="icon"
                 variant="outline"
                 className="ml-1 size-12 rounded-full border-2 transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary hover:shadow-md"
-                aria-label="Узнать больше"
+                aria-label="Перейти к разделу о сервисе"
               >
                 <ArrowUpRight className="size-5" />
               </Button>

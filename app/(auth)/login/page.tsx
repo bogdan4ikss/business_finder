@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { ArrowRight, Eye, EyeOff } from "lucide-react"
 
+import { AuthCheckbox } from "@/components/auth/auth-checkbox"
 import { AuthPanel } from "@/components/auth/auth-panel"
 
 const fieldClass =
@@ -41,7 +42,7 @@ export default function LoginPage() {
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between gap-4">
             <label htmlFor="login-password" className="text-xs font-semibold text-foreground">Пароль</label>
-            <Link href="#" className="text-xs font-medium text-muted-foreground transition-colors hover:text-foreground">Забыли пароль?</Link>
+            <a href="mailto:support@easywork.find?subject=Восстановление%20пароля" className="text-xs font-medium text-muted-foreground transition-colors hover:text-foreground">Забыли пароль?</a>
           </div>
           <div className="relative">
             <input id="login-password" type={showPassword ? "text" : "password"} autoComplete="current-password" placeholder="Введите пароль" className={`${fieldClass} pr-12`} required />
@@ -51,10 +52,9 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <label className="flex cursor-pointer items-center gap-3 text-xs text-muted-foreground">
-          <input type="checkbox" className="size-4 shrink-0 accent-primary" />
+        <AuthCheckbox name="remember">
           Запомнить меня на этом устройстве
-        </label>
+        </AuthCheckbox>
 
         <button type="submit" className="group mt-1 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-primary px-6 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/25">
           Войти

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { ArrowRight, Eye, EyeOff } from "lucide-react"
 
+import { AuthCheckbox } from "@/components/auth/auth-checkbox"
 import { AuthPanel } from "@/components/auth/auth-panel"
 
 const fieldClass =
@@ -54,12 +55,26 @@ export default function RegisterPage() {
           </div>
         </div>
 
-        <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-auth-line bg-auth-field/60 p-3.5">
-          <input type="checkbox" checked={agreed} onChange={(event) => setAgreed(event.target.checked)} className="mt-0.5 size-4 shrink-0 accent-primary" />
-          <span className="text-xs leading-relaxed text-muted-foreground">
-            Принимаю <Link href="#" className="text-foreground underline underline-offset-2">условия использования</Link> и <Link href="#" className="text-foreground underline underline-offset-2">политику конфиденциальности</Link>
-          </span>
-        </label>
+        <AuthCheckbox
+          name="legal-consent"
+          checked={agreed}
+          onChange={(event) => setAgreed(event.target.checked)}
+          required
+          containerClassName="rounded-2xl border border-auth-line bg-auth-field/60 p-3.5"
+        >
+          Принимаю{" "}
+          <Link href="/terms" className="text-foreground underline underline-offset-2">
+            условия использования
+          </Link>
+          ,{" "}
+          <Link href="/privacy" className="text-foreground underline underline-offset-2">
+            политику конфиденциальности
+          </Link>{" "}
+          и даю{" "}
+          <Link href="/personal-data-consent" className="text-foreground underline underline-offset-2">
+            согласие на обработку персональных данных
+          </Link>
+        </AuthCheckbox>
 
         <button type="submit" disabled={!agreed} className="group mt-1 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-primary px-6 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/25 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none">
           Создать аккаунт

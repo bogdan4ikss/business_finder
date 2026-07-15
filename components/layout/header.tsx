@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/layout/theme-toggle"
 
 const anchorLinks = [
-  { label: "Компания", href: "#about" },
-  { label: "Цены", href: "#price" },
-  { label: "Обратная связь", href: "#contact" },
+  { label: "Компания", href: "/#company" },
+  { label: "Цены", href: "/#price" },
+  { label: "Обратная связь", href: "/#contact" },
 ]
 
 export function Header() {
@@ -40,12 +40,12 @@ export function Header() {
             </li>
             {anchorLinks.map((item) => (
               <li key={item.href}>
-                <a
+                <Link
                   href={item.href}
                   className="transition-colors hover:text-foreground"
                 >
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -53,8 +53,12 @@ export function Header() {
 
         <div className="ml-auto hidden items-center gap-2 lg:flex">
           <ThemeToggle />
-          <Button variant="ghost">Войти</Button>
-          <Button>Попробовать бесплатно</Button>
+          <Button nativeButton={false} render={<Link href="/login" />} variant="ghost">
+            Войти
+          </Button>
+          <Button nativeButton={false} render={<Link href="/register" />}>
+            Попробовать бесплатно
+          </Button>
         </div>
 
         <div className="ml-auto flex items-center gap-1 lg:hidden">
@@ -80,20 +84,31 @@ export function Header() {
             Главная
           </Link>
           {anchorLinks.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className="rounded-lg px-2 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               onClick={() => setOpen(false)}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
           <div className="mt-2 flex flex-col gap-2 border-t border-border/40 pt-3">
-            <Button variant="ghost" className="justify-center">
+            <Button
+              nativeButton={false}
+              render={<Link href="/login" onClick={() => setOpen(false)} />}
+              variant="ghost"
+              className="justify-center"
+            >
               Войти
             </Button>
-            <Button className="justify-center">Попробовать бесплатно</Button>
+            <Button
+              nativeButton={false}
+              render={<Link href="/register" onClick={() => setOpen(false)} />}
+              className="justify-center"
+            >
+              Попробовать бесплатно
+            </Button>
           </div>
         </div>
       )}

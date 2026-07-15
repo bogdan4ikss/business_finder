@@ -4,40 +4,15 @@ import Link from "next/link"
 import { Heart } from "lucide-react"
 
 const navLinks = [
-  { label: "О сервисе", href: "#company" },
-  { label: "Цены", href: "#price" },
-  { label: "Обратная связь", href: "#contact" },
+  { label: "О сервисе", href: "/#company" },
+  { label: "Цены", href: "/#price" },
+  { label: "Обратная связь", href: "/#contact" },
 ]
 
-const legalColumns = [
-  {
-    title: "Реквизиты",
-    content: (
-      <address className="not-italic text-sm leading-relaxed text-muted-foreground">
-        ИП Нурпеисов Богдан Романович
-        <br />
-        ИНН: 481804709190
-        <br />
-        Плательщик НПД
-      </address>
-    ),
-  },
-  {
-    title: "Правовая информация",
-    content: (
-      <p className="text-sm leading-relaxed text-muted-foreground">
-        Используя сайт, вы соглашаетесь с обработкой персональных данных и правилами использования материалов.
-      </p>
-    ),
-  },
-  {
-    title: "Конфиденциальность",
-    content: (
-      <p className="text-sm leading-relaxed text-muted-foreground">
-        Мы обрабатываем данные только для связи с вами. Ваши данные защищены и не передаются третьим лицам.
-      </p>
-    ),
-  },
+const legalLinks = [
+  { label: "Условия использования", href: "/terms" },
+  { label: "Политика конфиденциальности", href: "/privacy" },
+  { label: "Согласие на обработку данных", href: "/personal-data-consent" },
 ]
 
 export function Footer() {
@@ -47,14 +22,14 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="flex flex-col gap-6 py-10 sm:flex-row sm:items-center sm:justify-between sm:py-12">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5" aria-label="EasyFinder — на главную">
+          <Link href="/" className="flex items-center gap-2.5" aria-label="easywork.find — на главную">
             <span className="flex size-8 items-center justify-center rounded-xl bg-primary text-primary-foreground">
               <svg viewBox="0 0 24 24" className="size-4" fill="none" aria-hidden="true">
                 <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2.2" />
                 <path d="m16.5 16.5 3.5 3.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
               </svg>
             </span>
-            <span className="font-heading text-base font-bold tracking-tight text-foreground">EasyFinder</span>
+            <span className="font-heading text-base font-bold tracking-tight text-foreground">easywork.find</span>
           </Link>
 
           {/* Nav links */}
@@ -77,14 +52,38 @@ export function Footer() {
         {/* Divider */}
         <div className="h-px w-full bg-border" />
 
-        {/* Legal columns */}
-        <div className="grid gap-8 py-10 sm:grid-cols-2 lg:grid-cols-3 lg:py-12">
-          {legalColumns.map((col) => (
-            <div key={col.title}>
-              <h3 className="mb-3 text-sm font-semibold text-foreground">{col.title}</h3>
-              {col.content}
-            </div>
-          ))}
+        {/* Legal information */}
+        <div className="grid gap-8 py-10 sm:grid-cols-2 lg:grid-cols-[1fr_1.4fr] lg:py-12">
+          <div>
+            <h3 className="mb-3 text-sm font-semibold text-foreground">Реквизиты</h3>
+            <address className="not-italic text-sm leading-relaxed text-muted-foreground">
+              ИП Нурпеисов Богдан Романович
+              <br />
+              ИНН: 481804709190
+              <br />
+              Плательщик НПД
+            </address>
+          </div>
+          <div>
+            <h3 className="mb-3 text-sm font-semibold text-foreground">Правовая информация</h3>
+            <nav aria-label="Правовые документы">
+              <ul className="grid gap-2 sm:grid-cols-2">
+                {legalLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted-foreground underline decoration-border underline-offset-4 transition-colors hover:text-foreground hover:decoration-primary"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
+              Документы составлены с учётом требований законодательства Российской Федерации.
+            </p>
+          </div>
         </div>
 
         {/* Divider */}
